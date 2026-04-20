@@ -1,4 +1,5 @@
 import { AdminService } from './admin.service';
+import { CreateAdminUserDto } from './dto/create-admin-user.dto';
 import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 export declare class AdminController {
     private readonly adminService;
@@ -17,6 +18,14 @@ export declare class AdminController {
         isActive: boolean;
         createdAt: Date;
     }[]>;
+    createUser(body: CreateAdminUserDto): Promise<{
+        id: string;
+        email: string;
+        fullName: string;
+        roleId: number;
+        isActive: boolean;
+        createdAt: Date;
+    }>;
     userById(id: string): import("@prisma/client").Prisma.Prisma__UserClient<{
         id: string;
         email: string;

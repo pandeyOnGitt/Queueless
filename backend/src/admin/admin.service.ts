@@ -1,6 +1,8 @@
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { BookingStatus, SlotStatus } from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateAdminUserDto } from './dto/create-admin-user.dto';
 
 @Injectable()
 export class AdminService {
@@ -66,6 +68,35 @@ export class AdminService {
         email: true,
         roleId: true,
         isActive: true,
+      },
+    });
+  }
+
+  async createUser(payload: CreateAdminUserDto) {
+    const existing = await this.prisma.user.findUnique({
+      where: { email: payload.email },
+      select: { id: true },
+    });
+    if (existing) {
+      throw new BadRequestException('Email already in use');
+    }
+
+    const passwordHash = await bcrypt.hash(payload.password, 10);
+    return this.prisma.user.create({
+      data: {
+        fullName: payload.fullName,
+        email: payload.email,
+        passwordHash,
+        roleId: payload.roleId,
+        isActive: payload.isActive ?? true,
+      },
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
+        roleId: true,
+        isActive: true,
+        createdAt: true,
       },
     });
   }

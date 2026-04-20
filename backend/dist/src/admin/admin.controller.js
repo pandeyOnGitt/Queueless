@@ -19,6 +19,7 @@ const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const roles_guard_1 = require("../auth/guards/roles.guard");
 const role_constants_1 = require("../auth/constants/role.constants");
 const admin_service_1 = require("./admin.service");
+const create_admin_user_dto_1 = require("./dto/create-admin-user.dto");
 const update_user_status_dto_1 = require("./dto/update-user-status.dto");
 let AdminController = class AdminController {
     adminService;
@@ -30,6 +31,9 @@ let AdminController = class AdminController {
     }
     users(search) {
         return this.adminService.getUsers(search);
+    }
+    createUser(body) {
+        return this.adminService.createUser(body);
     }
     userById(id) {
         return this.adminService.getUserById(id);
@@ -55,6 +59,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], AdminController.prototype, "users", null);
+__decorate([
+    (0, common_1.Post)('users'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_admin_user_dto_1.CreateAdminUserDto]),
+    __metadata("design:returntype", void 0)
+], AdminController.prototype, "createUser", null);
 __decorate([
     (0, common_1.Get)('users/:id'),
     __param(0, (0, common_1.Param)('id')),

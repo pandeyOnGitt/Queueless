@@ -1,4 +1,5 @@
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateAdminUserDto } from './dto/create-admin-user.dto';
 export declare class AdminService {
     private readonly prisma;
     constructor(prisma: PrismaService);
@@ -31,6 +32,14 @@ export declare class AdminService {
         roleId: number;
         isActive: boolean;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
+    createUser(payload: CreateAdminUserDto): Promise<{
+        id: string;
+        email: string;
+        fullName: string;
+        roleId: number;
+        isActive: boolean;
+        createdAt: Date;
+    }>;
     getBookings(search?: string): import("@prisma/client").Prisma.PrismaPromise<({
         user: {
             email: string;
