@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --muted: #64748b;
+  --ring: #a5b4fc;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+.dark {
+  --background: #111827;
+  --foreground: #e5e7eb;
+  --surface: #1f2937;
+  --muted: #9ca3af;
+  --ring: #6366f1;
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(80% 50% at 50% -10%, rgba(99, 102, 241, 0.16), transparent 60%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+* {
+  border-color: rgb(226 232 240 / 0.9);
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease;
+}
+
+.surface {
+  background: color-mix(in oklab, var(--surface) 96%, white 4%);
+}
+
+.glass {
+  background: color-mix(in oklab, var(--surface) 88%, transparent 12%);
+  backdrop-filter: blur(8px);
+}
+
+input,
+select,
+textarea {
+  color: var(--foreground) !important;
+  background-color: var(--surface) !important;
+  border-color: color-mix(in oklab, var(--muted) 28%, transparent) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in oklab, var(--muted) 72%, transparent) !important;
+}
+
+select option {
+  background-color: var(--surface);
+  color: var(--foreground);
+}
+
+.dark * {
+  border-color: rgb(51 65 85 / 0.8);
+}
